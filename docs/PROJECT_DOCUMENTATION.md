@@ -6,8 +6,9 @@
 
 - ชื่อโครงการ: Northstar Commerce Workspace
 - ชื่อสมาชิกกลุ่ม: [กรอกชื่อสมาชิกทุกคน]
-- URL เว็บแอป Railway: [เติมหลัง deploy สำเร็จ]
-- URL Google Drive ที่เก็บ Source Code: [เติมหลังอัปโหลด Source Code]
+- URL เว็บแอป Railway: https://northwind-crud-webapp-production.up.railway.app
+- URL GitHub repository: https://github.com/Chomwarit/northwind-crud-webapp
+- URL Google Drive ที่เก็บ Source Code: [กรอกหากรายวิชากำหนดให้ส่งผ่าน Google Drive]
 - URL เอกสารฉบับ Google Docs: [เติมหลังสร้างหรือคัดลอกเอกสารนี้ไป Google Docs]
 - ฐานข้อมูล: Northwind จากไฟล์ `dbNorthwind.sql` ที่รายวิชาจัดให้
 - เทคโนโลยี: PHP 8, MySQL, PDO, HTML, CSS, JavaScript, JSON API
