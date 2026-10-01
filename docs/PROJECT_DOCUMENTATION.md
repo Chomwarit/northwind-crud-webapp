@@ -101,11 +101,11 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 หนูเตรียมไฟล์ PHP, หน้าเว็บ, API สำหรับจัดการสินค้า และไฟล์ฐานข้อมูล Northwind ไว้ใน GitHub repository จากนั้นเชื่อม repository กับ Railway โดยเลือก branch `main` เมื่อมีการอัปเดตโค้ด Railway จะดึงไฟล์จาก GitHub มาสร้างและ Deploy ใหม่ให้อัตโนมัติ
 
-ใน Railway เราสร้าง service สำหรับเว็บและ MySQL แยกกัน แล้วตั้งค่าตัวแปร `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` และ `DB_PASS` ของเว็บให้ดึงค่าจาก MySQL service โดยตรง วิธีนี้ทำให้ไม่ต้องเขียนรหัสผ่านฐานข้อมูลไว้ใน source code หรืออัปโหลดขึ้น GitHub
+ใน Railway หนูสร้าง service สำหรับเว็บและ MySQL แยกกัน แล้วตั้งค่าตัวแปร `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` และ `DB_PASS` ของเว็บให้ดึงค่าจาก MySQL service โดยตรง วิธีนี้ทำให้ไม่ต้องเขียนรหัสผ่านฐานข้อมูลไว้ใน source code หรืออัปโหลดขึ้น GitHub
 
 เว็บสร้างจาก `Dockerfile` ซึ่งติดตั้ง PHP, PDO MySQL และ MySQL client แล้วเปิด PHP server บนพอร์ตที่ Railway กำหนด เมื่อเริ่มทำงาน สคริปต์จะรอให้ MySQL พร้อมก่อน ถ้ายังไม่มีตาราง `tb_products` ระบบจะนำเข้าข้อมูลจาก `database/dbNorthwind.sql` ไปยังฐานข้อมูล Railway ให้โดยอัตโนมัติ
 
-หลัง Build เสร็จ Railway เรียก `/health.php` เพื่อตรวจว่าเว็บเชื่อมต่อฐานข้อมูลได้ โดย health check ใช้คำสั่ง `SELECT 1` เมื่อการตรวจสอบผ่าน สถานะ deployment จะแสดงว่าสำเร็จ จากนั้นเราสร้าง Public Domain เพื่อใช้เปิดเว็บจากภายนอก และตรวจดูสถานะกับ log ของ service ว่าการนำเข้าข้อมูลและ health check ผ่านแล้ว
+หลัง Build เสร็จ Railway เรียก `/health.php` เพื่อตรวจว่าเว็บเชื่อมต่อฐานข้อมูลได้ โดย health check ใช้คำสั่ง `SELECT 1` เมื่อการตรวจสอบผ่าน สถานะ deployment จะแสดงว่าสำเร็จ จากนั้นหนูสร้าง Public Domain เพื่อใช้เปิดเว็บจากภายนอก และตรวจดูสถานะกับ log ของ service ว่าการนำเข้าข้อมูลและ health check ผ่านแล้ว
 
 ## 5. วิธีตรวจสอบการทำงานหลัง deploy
 
