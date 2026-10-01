@@ -59,7 +59,7 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 1. ไฟล์ฐานข้อมูลจากรายวิชาถูกเก็บไว้ที่ `database/dbNorthwind.sql` ใน Source Code ชุดนี้
 2. สำหรับ MAMP ให้นำเข้าไฟล์ผ่าน phpMyAdmin และกำหนดชื่อฐานข้อมูลให้ตรงกับ `DB_NAME` ใน `includes/db.php` หรือค่าตัวแปรสภาพแวดล้อม
-3. สำหรับ Railway ให้สร้าง MySQL service ใน project เดียวกับแอป แล้วนำเข้าข้อมูล Northwind ลงในฐานข้อมูลของ service
+3. สำหรับ Railway ให้สร้าง MySQL service ใน project เดียวกับแอป เมื่อเว็บเริ่มทำงานครั้งแรก สคริปต์ `scripts/seed-railway-db.sh` จะนำเข้าข้อมูล Northwind ลงในฐานข้อมูลที่กำหนดไว้ หากยังไม่มีตาราง `tb_products`
 4. ไฟล์นี้มีคำสั่ง `CREATE DATABASE IF NOT EXISTS db_northwind` และ `USE db_northwind` ซึ่งตรงกับค่าเริ่มต้นของแอป ส่วนบรรทัด comment ที่ระบุ `db_northwind_cpe2204` เป็นเพียงข้อมูลกำกับ ไม่ใช่คำสั่ง SQL
 
 ## 4. ขั้นตอน deploy เว็บและฐานข้อมูลบน Railway
@@ -87,20 +87,12 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 ### 4.3 Import ไฟล์ Northwind
 
-สามารถเปิด TCP Proxy ชั่วคราวจาก Settings → Networking ของ MySQL service แล้วใช้ MySQL client จากเครื่องที่มีไฟล์ dump:
-
-```sh
-mysql --host=<PUBLIC_PROXY_HOST> --port=<PUBLIC_PROXY_PORT> --user=<MYSQLUSER> --password <DATABASE_NAME> < database/dbNorthwind.sql
-```
-
-แทนค่า host, port, user และ database ด้วยค่าจาก Railway ห้ามใส่รหัสผ่านจริงลงในเอกสารหรือ commit ลง Git หาก Railway MySQL อนุญาตให้สร้างฐานข้อมูล ให้ใช้ `db_northwind` ตามไฟล์ dump หากอนุญาตให้ใช้เฉพาะฐานข้อมูลที่ Railway สร้างไว้ ให้ทำสำเนาไฟล์ dump สำหรับ import และเปลี่ยนเฉพาะคำสั่งสร้าง/เลือกฐานข้อมูลด้านบนให้เป็นชื่อ `MYSQLDATABASE` ของ Railway ก่อนนำเข้า โดยคงคำสั่งสร้างตารางและข้อมูลเดิมไว้
-
-เมื่อ import สำเร็จ ให้ตรวจว่าเว็บ service ใช้ database ชื่อเดียวกันใน `DB_NAME` จากนั้น health check ที่ `/health.php` ควรตอบ HTTP 200 เมื่อเชื่อม MySQL ได้
+ใน Railway เว็บจะรอจน MySQL พร้อม แล้วตรวจว่ามีตาราง `tb_products` หรือยัง หากยังไม่มี จะนำเข้า `database/dbNorthwind.sql` ไปยังฐานข้อมูลที่ `DB_NAME` ระบุ โดยตัดคำสั่งสร้างและเลือกฐาน `db_northwind` ในไฟล์ dump ออก เพื่อใช้ฐานข้อมูลเริ่มต้นของ Railway ได้ จากนั้น `/health.php` จะตรวจการเชื่อมต่อด้วย `SELECT 1`
 
 ### 4.4 Deploy เว็บแอป
 
 1. สร้าง Web Service จาก GitHub repository ของกลุ่ม
-2. Railway จะใช้ `Dockerfile` ที่ root เพื่อ build PHP 8 + Apache และเปิด PDO MySQL
+2. Railway จะใช้ `Dockerfile` ที่ root เพื่อ build PHP 8 พร้อม PDO MySQL และรัน PHP server บนพอร์ตที่ Railway กำหนด
 3. ตั้งค่า health check path เป็น `/health.php` หาก Railway ยังไม่อ่านจาก `railway.json`
 4. รอจน deployment ผ่าน health check แล้วไปที่ Settings → Networking → Public Networking → Generate Domain เพื่อสร้าง URL สาธารณะ
 5. บันทึก URL ที่ Railway สร้างลงส่วนข้อมูลสำหรับส่งงานด้านบนและใน Google Docs
