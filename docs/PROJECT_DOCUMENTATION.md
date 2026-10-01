@@ -5,7 +5,7 @@
 ## ข้อมูลสำหรับส่งงาน
 
 - ชื่อโครงการ: Northstar Commerce Workspace
-- ชื่อสมาชิกกลุ่ม: [กรอกชื่อสมาชิกทุกคน]
+- ชื่อผู้จัดทำ: [กรอกชื่อ-นามสกุล]
 - URL เว็บแอป Railway: https://northwind-crud-webapp-production.up.railway.app
 - URL GitHub repository: https://github.com/Chomwarit/northwind-crud-webapp
 - URL Google Drive ที่เก็บ Source Code: [กรอกหากรายวิชากำหนดให้ส่งผ่าน Google Drive]
@@ -66,7 +66,7 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 ### 4.1 เตรียม Source Code
 
-1. เพิ่มไฟล์ใน workspace นี้ไปยัง GitHub repository ของกลุ่ม โดยไม่เพิ่ม `.env` หรือรหัสผ่านลง repository
+1. เพิ่มไฟล์ใน workspace นี้ไปยัง GitHub repository โดยไม่เพิ่ม `.env` หรือรหัสผ่านลง repository
 2. ตรวจว่า `Dockerfile`, `railway.json`, `health.php`, `api/`, `includes/`, `assets/`, `database/dbNorthwind.sql` และ `index.php` อยู่ใน repository
 
 ### 4.2 สร้าง Railway project และ MySQL
@@ -91,15 +91,15 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 ### 4.4 Deploy เว็บแอป
 
-1. สร้าง Web Service จาก GitHub repository ของกลุ่ม
+1. สร้าง Web Service จาก GitHub repository
 2. Railway จะใช้ `Dockerfile` ที่ root เพื่อ build PHP 8 พร้อม PDO MySQL และรัน PHP server บนพอร์ตที่ Railway กำหนด
 3. ตั้งค่า health check path เป็น `/health.php` หาก Railway ยังไม่อ่านจาก `railway.json`
 4. รอจน deployment ผ่าน health check แล้วไปที่ Settings → Networking → Public Networking → Generate Domain เพื่อสร้าง URL สาธารณะ
 5. บันทึก URL ที่ Railway สร้างลงส่วนข้อมูลสำหรับส่งงานด้านบนและใน Google Docs
 
-### 4.5 ขั้นตอนที่กลุ่มใช้ในการ Deploy
+### 4.5 ขั้นตอนที่หนูใช้ในการ Deploy
 
-กลุ่มของเราเตรียมไฟล์ PHP, หน้าเว็บ, API สำหรับจัดการสินค้า และไฟล์ฐานข้อมูล Northwind ไว้ใน GitHub repository จากนั้นเชื่อม repository กับ Railway โดยเลือก branch `main` เมื่อมีการอัปเดตโค้ด Railway จะดึงไฟล์จาก GitHub มาสร้างและ Deploy ใหม่ให้อัตโนมัติ
+หนูเตรียมไฟล์ PHP, หน้าเว็บ, API สำหรับจัดการสินค้า และไฟล์ฐานข้อมูล Northwind ไว้ใน GitHub repository จากนั้นเชื่อม repository กับ Railway โดยเลือก branch `main` เมื่อมีการอัปเดตโค้ด Railway จะดึงไฟล์จาก GitHub มาสร้างและ Deploy ใหม่ให้อัตโนมัติ
 
 ใน Railway เราสร้าง service สำหรับเว็บและ MySQL แยกกัน แล้วตั้งค่าตัวแปร `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER` และ `DB_PASS` ของเว็บให้ดึงค่าจาก MySQL service โดยตรง วิธีนี้ทำให้ไม่ต้องเขียนรหัสผ่านฐานข้อมูลไว้ใน source code หรืออัปโหลดขึ้น GitHub
 
@@ -120,10 +120,10 @@ API ตอบกลับเป็น JSON โดยส่งสถานะ HTT
 
 ## 6. การส่งงาน
 
-- Source Code: อัปโหลดไฟล์โครงการนี้ไปยัง Google Drive ของกลุ่ม หรือสร้าง ZIP โดยไม่รวม `.env` จากนั้นเปิดสิทธิ์ตามที่ผู้สอนกำหนดและใส่ลิงก์ไว้ด้านบน
-- Process Documentation: คัดลอกเอกสารนี้ไป Google Docs เพิ่มชื่อสมาชิก ภาพหน้าจอขั้นตอน deploy, ผลการทดสอบ CRUD, URL แอป และลิงก์ Source Code
+- Source Code: อัปโหลดไฟล์โครงการนี้ไปยัง Google Drive หรือสร้าง ZIP โดยไม่รวม `.env` จากนั้นเปิดสิทธิ์ตามที่ผู้สอนกำหนดและใส่ลิงก์ไว้ด้านบน
+- Process Documentation: คัดลอกเอกสารนี้ไป Google Docs เพิ่มชื่อผู้จัดทำ ภาพหน้าจอขั้นตอน deploy, ผลการทดสอบ CRUD, URL แอป และลิงก์ Source Code
 - Live Application: ใส่ Railway public domain ที่ใช้งานได้จริง
-- สมาชิกกลุ่ม: เติมรายชื่อสมาชิกตามจริงก่อนส่ง
+- ผู้จัดทำ: เติมชื่อ-นามสกุลก่อนส่ง
 
 ## 7. แหล่งอ้างอิง
 
